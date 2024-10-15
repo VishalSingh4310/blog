@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { CommentProvider } from "context/commentContext";
+import { PostProvider } from "context/postsContext";
+import Navbar from "@components/Navbar";
+
 const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Blog App",
@@ -14,7 +18,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} antialiased`}>{children}</body>
+      <body className={`${inter.className} antialiased`}>
+        <>
+          <PostProvider>
+            <CommentProvider>
+              <Navbar />
+              {children}
+            </CommentProvider>
+          </PostProvider>
+        </>
+      </body>
     </html>
   );
 }
